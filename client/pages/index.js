@@ -3,8 +3,15 @@ import axios from "axios";
 import SinglePost from "../components/cards/SinglePost";
 import Link from "next/link";
 import Head from "next/head";
+import { useEffect, useState } from "react";
 
-const Home = ({ posts }) => {
+const Home = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    axios.get("/posts").then((response) => setPosts(response.data));
+  }, []);
+
   const head = () => (
     <Head>
       <title>MERNCAMP - A social network by devs for devs</title>
@@ -45,10 +52,10 @@ const Home = ({ posts }) => {
   );
 };
 
-export const getServerSideProps = async () => {
-  const { data } = await axios.get("/posts");
-  console.log(data);
-  return { props: { posts: data } };
-};
+// export const getServerSideProps = async () => {
+//   const { data } = await axios.get("/posts");
+//   console.log(data);
+//   return { props: { data } };
+// };
 
 export default Home;
