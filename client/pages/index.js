@@ -30,8 +30,8 @@ const Home = ({ posts }) => {
 
       <div className="container">
         <div className="row pt-5">
-          {posts.map((post) => (
-            <div className="col-md-4">
+          {posts.map((post, index) => (
+            <div className="col-md-4" key={index}>
               <Link href={`/post/public/${post._id}`}>
                 <a>
                   <SinglePost post={post} />
@@ -47,7 +47,7 @@ const Home = ({ posts }) => {
 
 export const getServerSideProps = async () => {
   const { data } = await axios.get("/posts");
-  // console.log(data);
+  console.log(data);
   return { props: { posts: data } };
 };
 
